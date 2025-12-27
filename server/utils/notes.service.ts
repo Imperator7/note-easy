@@ -2,6 +2,7 @@ let notes: Note[] = []
 
 export const useNoteService = () => {
   return {
+    get: (id: string) => notes.find((note) => note.id === id),
     getAll: (): Note[] => notes,
     create: (note: string, category: string, author: string): Note => {
       const newNote = {
