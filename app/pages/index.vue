@@ -69,6 +69,28 @@ const removeNote = (noteId: string) => {
 <template>
   <div class="w-[clamp(400px, 50%, 600px)] p-4 flex flex-col gap-4">
     <h2 class="text-xl font-bold">Notes</h2>
+    <div class="flex gap-4">
+      <input
+        type="text"
+        v-model="newNote"
+        class="border p-2 rounded"
+        placeholder="Type here..."
+      />
+      <div class="flex gap-2 items-baseline">
+        <button
+          class="p-2 bg-green-400 rounded cursor-pointer"
+          @click="addNote"
+        >
+          <Icon name="material-symbols:check-rounded" size="20" />
+        </button>
+        <button
+          class="p-2 bg-red-400 rounded cursor-pointer"
+          @click="() => (newNote = '')"
+        >
+          <Icon name="material-symbols-light:close-rounded" size="20" />
+        </button>
+      </div>
+    </div>
     <ul class="flex flex-col gap-2">
       <li v-for="note in notes">
         <NoteCard
