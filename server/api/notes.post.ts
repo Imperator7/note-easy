@@ -17,6 +17,6 @@ export default defineEventHandler(async (event) => {
   return {
     success: true,
     status: 201,
-    data: createNote(author, note, category),
+    data: createNote(note, category, author),
   }
 })

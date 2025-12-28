@@ -6,8 +6,8 @@ export default defineEventHandler(async (event) => {
   const { id } = getRouterParams(event)
 
   const patchBodySchema = z.object({
-    note: z.string(),
-    category: z.string(),
+    note: z.string().optional(),
+    category: z.string().optional(),
   })
 
   const { note, category } = await readValidatedBody(
