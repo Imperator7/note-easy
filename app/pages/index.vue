@@ -36,12 +36,13 @@ onMounted(() => {
         <option>Oldest first</option>
       </select>
     </div>
-    <div v-show="loggedIn" class="flex gap-4">
+    <form v-show="loggedIn" class="flex gap-4" @submit.prevent="addNote">
       <input
         type="text"
         v-model="newNote"
         class="border p-2 rounded"
         placeholder="Type here..."
+        required
       />
       <select
         name="category"
@@ -57,7 +58,7 @@ onMounted(() => {
       <div class="flex gap-2 items-center">
         <button
           class="p-2 bg-green-400 rounded cursor-pointer flex items-center"
-          @click="addNote"
+          type="submit"
         >
           <Icon name="material-symbols:check-rounded" size="20" />
         </button>
@@ -68,7 +69,7 @@ onMounted(() => {
           <Icon name="material-symbols-light:close-rounded" size="20" />
         </button>
       </div>
-    </div>
+    </form>
     <NoteList :sort-by="sortBy" />
   </div>
 </template>
