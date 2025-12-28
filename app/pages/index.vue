@@ -10,6 +10,8 @@ const addNote = () => {
     author: user.value?.name,
     category: 'work',
   })
+
+  newNote.value = ''
 }
 
 onMounted(() => {
@@ -27,15 +29,15 @@ onMounted(() => {
         class="border p-2 rounded"
         placeholder="Type here..."
       />
-      <div class="flex gap-2 items-baseline">
+      <div class="flex gap-2 items-center">
         <button
-          class="p-2 bg-green-400 rounded cursor-pointer"
+          class="p-2 bg-green-400 rounded cursor-pointer flex items-center"
           @click="addNote"
         >
           <Icon name="material-symbols:check-rounded" size="20" />
         </button>
         <button
-          class="p-2 bg-red-400 rounded cursor-pointer"
+          class="p-2 bg-red-400 rounded cursor-pointer flex items-center"
           @click="() => (newNote = '')"
         >
           <Icon name="material-symbols-light:close-rounded" size="20" />
