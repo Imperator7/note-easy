@@ -8,6 +8,8 @@ const isEditing = ref<boolean>(false)
 const showHistory = ref<boolean>(false)
 const editingNote = ref<string>(props.note.note)
 
+const { loggedIn } = useUserSession()
+
 const { removeNoteById, editNoteById } = useNote()
 
 const editNote = (newNote?: string, category?: string) => {
@@ -31,6 +33,7 @@ const toggleHistory = () => {
           {{ note.note }}
         </p>
         <v-btn
+          v-show="loggedIn"
           class="cursor-pointer"
           @click="
             () => {
@@ -73,6 +76,7 @@ const toggleHistory = () => {
       </div>
 
       <div class="flex gap-2">
+        <p>{{ note.author }}</p>
         <v-btn
           v-show="!showHistory"
           @click="toggleHistory"
@@ -85,7 +89,7 @@ const toggleHistory = () => {
           class="cursor-pointer"
           ><Icon name="material-symbols:keyboard-arrow-up" color="red-500"
         /></v-btn>
-        <v-btn @click="removeNote()" class="cursor-pointer"
+        <v-btn v-show="loggedIn" @click="removeNote()" class="cursor-pointer"
           ><Icon name="material-symbols:close" color="red-500"
         /></v-btn>
       </div>
@@ -95,7 +99,6 @@ const toggleHistory = () => {
         [[showHistory ? 'p-2' : 'hidden'], 'bg-white m-2 p-2 rounded'].join(' ')
       "
     >
-      <p>ผู้เขียน: {{ note.author }}</p>
       <p>
         เขียนเมื่อ:
         {{ new Date(note.createdAt).toLocaleTimeString() }} วันที่
