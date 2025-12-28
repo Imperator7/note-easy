@@ -8,7 +8,7 @@ export const useNote = () => {
     fetching.value = true
     try {
       const { data } = await $fetch('/api/notes')
-      notes.value = [...notes.value, ...data]
+      notes.value = data
       console.log('Fetched', notes.value)
     } catch (error) {
       console.error(error)
@@ -25,10 +25,10 @@ export const useNote = () => {
     creating.value = true
     try {
       const { data } = await $fetch('/api/notes', {
-        method: 'POST' as any,
+        method: 'POST',
         body: payload,
       })
-      notes.value.push(data)
+      notes.value.unshift(data)
     } catch (error) {
       console.error(error)
     } finally {
@@ -39,7 +39,7 @@ export const useNote = () => {
   const removeNoteById = async (payload: { id: string }) => {
     try {
       await $fetch(`/api/notes/${payload.id}`, {
-        method: 'DELETE' as any,
+        method: 'DELETE',
       })
 
       notes.value = notes.value.filter((note) => note.id !== payload.id)
