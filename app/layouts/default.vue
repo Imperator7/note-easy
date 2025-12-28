@@ -1,28 +1,49 @@
+<script setup lang="ts">
+const { user, loggedIn, clear } = useUserSession()
+
+const handleLogOut = () => {
+  clear()
+}
+
+const name = user.value?.name ?? ''
+</script>
+
 <template>
   <div class="min-h-screen flex flex-col">
     <header class="bg-sky-900 text-white h-16 flex items-center p-4">
       <div class="flex justify-between w-full">
-        <h1 class="font-medium text-2xl">Note ready</h1>
-        <div class="flex gap-4">
-          <button
-            class="font-medium text-black rounded px-4 py-2 bg-white cursor-pointer"
+        <NuxtLink to="/" class="font-medium text-2xl">Note ready</NuxtLink>
+        <div v-show="!loggedIn" class="flex gap-4">
+          <NuxtLink
+            class="font-medium text-black rounded px-2 py-2 bg-white cursor-pointer"
+            to="/auth/login"
           >
             Log in
-          </button>
-          <button
-            class="font-medium text-black rounded px-4 py-2 bg-green-400 cursor-pointer"
+          </NuxtLink>
+          <NuxtLink
+            class="font-medium text-black rounded px-2 py-2 bg-green-400 cursor-pointer"
+            to="/auth/register"
           >
             Sign up
+          </NuxtLink>
+        </div>
+        <div v-show="loggedIn" class="flex items-baseline gap-2">
+          <p class="font-semibold">hey, {{ name }}!</p>
+          <button
+            class="font-medium text-black rounded px-2 py-2 bg-green-400 cursor-pointer"
+            @click="handleLogOut"
+          >
+            Log out
           </button>
         </div>
       </div>
     </header>
-    <main class="flex-1">
+    <main class="flex-1 flex flex-col">
       <slot />
     </main>
     <footer>
       <div
-        class="bg-sky-900 p-2 text-white font-medium flex justify-center flex-col items-center"
+        class="bg-sky-900 pt-4 pb-8 text-white font-medium flex justify-center flex-col items-center"
       >
         <p>Developed by Rungroj Rungsaranon.</p>
         <p>

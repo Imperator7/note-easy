@@ -1,10 +1,6 @@
 <script setup lang="ts">
-import type { Note } from '~/pages/index.vue'
-
 interface Props {
   note: Note
-  editNote: (newNote: string) => void
-  removeNote: () => void
 }
 const props = defineProps<Props>()
 
@@ -12,7 +8,15 @@ const isEditing = ref<boolean>(false)
 const showHistory = ref<boolean>(false)
 const editingNote = ref<string>(props.note.note)
 
-const date = new Date(props.note.createdAt)
+const { removeNoteById, editNoteById } = useNote()
+
+const editNote = (newNote?: string, category?: string) => {
+  editNoteById({ id: props.note.id, note: newNote, category: category })
+}
+
+const removeNote = () => {
+  removeNoteById({ id: props.note.id })
+}
 
 const toggleHistory = () => {
   showHistory.value = !showHistory.value
@@ -37,7 +41,7 @@ const toggleHistory = () => {
           <Icon name="material-symbols:edit-outline" />
         </v-btn>
       </div>
-      <div v-show="isEditing">
+      <div v-show="isEditing" class="flex gap-2">
         <input
           v-model="editingNote"
           type="text"
@@ -49,7 +53,7 @@ const toggleHistory = () => {
           class="cursor-pointer"
           @click="
             () => {
-              editNote(editingNote)
+              editNote(editingNote, undefined)
               isEditing = false
             }
           "
@@ -68,7 +72,7 @@ const toggleHistory = () => {
         </v-btn>
       </div>
 
-      <div>
+      <div class="flex gap-2">
         <v-btn
           v-show="!showHistory"
           @click="toggleHistory"
@@ -81,16 +85,21 @@ const toggleHistory = () => {
           class="cursor-pointer"
           ><Icon name="material-symbols:keyboard-arrow-up" color="red-500"
         /></v-btn>
-        <v-btn @click="removeNote" class="cursor-pointer"
+        <v-btn @click="removeNote()" class="cursor-pointer"
           ><Icon name="material-symbols:close" color="red-500"
         /></v-btn>
       </div>
     </div>
-    <div :class="[showHistory ? 'p-2' : 'hidden']">
+    <div
+      :class="
+        [[showHistory ? 'p-2' : 'hidden'], 'bg-white m-2 p-2 rounded'].join(' ')
+      "
+    >
       <p>ผู้เขียน: {{ note.author }}</p>
       <p>
-        เขียนเมื่อ: {{ date.toLocaleTimeString() }} วันที่
-        {{ date.toLocaleDateString() }}
+        เขียนเมื่อ:
+        {{ new Date(note.createdAt).toLocaleTimeString() }} วันที่
+        {{ new Date(note.createdAt).toLocaleDateString() }}
       </p>
     </div>
   </div>
