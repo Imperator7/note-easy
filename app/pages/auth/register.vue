@@ -34,7 +34,7 @@ async function register() {
   <div class="flex flex-1 items-center justify-center bg-gray-200">
     <form
       @submit.prevent="register"
-      class="flex flex-col gap-4 bg-gray-300 rounded max-w-100 p-4"
+      class="flex flex-col gap-4 bg-gray-300 rounded max-w-100 p-4 -translate-y-20"
     >
       <input
         v-model="registerData.name"
