@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+  layout: 'auth',
+})
+
 const { fetch: refreshSession } = useUserSession()
 const credentials = ref({
   email: '',
