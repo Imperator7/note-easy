@@ -2,11 +2,9 @@
   "name": "note-ready",
   "dependencies": {
     "@nuxt/icon": "2.1.1",
-    "@pinia/nuxt": "0.11.3",
     "@tailwindcss/vite": "^4.1.18",
     "nuxt": "^4.2.2",
     "nuxt-auth-utils": "0.5.26",
-    "pinia": "^3.0.4",
     "tailwindcss": "^4.1.18",
     "vue": "^3.5.26",
     "vue-router": "^4.6.4",
