@@ -37,6 +37,21 @@ const removeNote = () => {
 const toggleHistory = () => {
   showHistory.value = !showHistory.value
 }
+
+const startEditing = () => {
+  editingNote.value = props.note.note
+  isEditing.value = true
+}
+
+const stopEditing = () => {
+  editingNote.value = props.note.note
+  isEditing.value = false
+}
+
+const confirmEditing = () => {
+  editNote(editingNote.value, undefined)
+  isEditing.value = false
+}
 </script>
 
 <template>
@@ -46,16 +61,7 @@ const toggleHistory = () => {
         <p class="px-2 max-w-[50vw] wrap-break-word">
           {{ note.note }}
         </p>
-        <v-btn
-          v-show="loggedIn"
-          class="cursor-pointer"
-          @click="
-            () => {
-              editingNote = note.note
-              isEditing = true
-            }
-          "
-        >
+        <v-btn v-show="loggedIn" class="cursor-pointer" @click="startEditing">
           <Icon name="material-symbols:edit-outline" />
         </v-btn>
       </div>
@@ -66,25 +72,9 @@ const toggleHistory = () => {
           placeholder="edit here"
           class="px-2 field-sizing-content min-w-12.5 border rounded max-w-[50vw] wrap-break-word"
         />
-        <v-btn
-          class="cursor-pointer"
-          @click="
-            () => {
-              editNote(editingNote, undefined)
-              isEditing = false
-            }
-          "
-        >
+        <v-btn class="cursor-pointer" @click="confirmEditing">
           <Icon name="material-symbols:check" /> </v-btn
-        ><v-btn
-          class="cursor-pointer"
-          @click="
-            () => {
-              editingNote = note.note
-              isEditing = false
-            }
-          "
-        >
+        ><v-btn class="cursor-pointer" @click="stopEditing">
           <Icon name="material-symbols:close" />
         </v-btn>
       </div>
