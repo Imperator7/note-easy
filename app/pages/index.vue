@@ -64,16 +64,10 @@ onMounted(() => {
       </select>
       <div class="flex gap-2 items-center">
         <button
-          class="p-2 bg-green-400 rounded cursor-pointer flex items-center"
+          class="py-2 px-4 bg-sky-700 text-white font-medium rounded cursor-pointer flex items-center hover:-translate-y-0.5 transition duration-75 ease active:translate-y-1 active:bg-sky-500"
           type="submit"
         >
-          <Icon name="material-symbols:check-rounded" size="20" />
-        </button>
-        <button
-          class="p-2 bg-red-400 rounded cursor-pointer flex items-center"
-          @click="() => (newNote = '')"
-        >
-          <Icon name="material-symbols-light:close-rounded" size="20" />
+          Create
         </button>
       </div>
     </form>
