@@ -17,11 +17,7 @@ export const useNote = () => {
     }
   }
 
-  const createNote = async (payload: {
-    note: string
-    author: string
-    category: string
-  }) => {
+  const createNote = async (payload: { note: string; category: string }) => {
     creating.value = true
     try {
       const { data } = await $fetch('/api/notes', {
