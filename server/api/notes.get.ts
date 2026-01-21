@@ -7,15 +7,16 @@ export default defineEventHandler(async (event) => {
 
   const querySchema = z.object({
     page: z.coerce.number().int().positive().optional(),
+    sortBy: z.string().default('Newest'),
   })
 
-  const { page } = await getValidatedQuery(event, querySchema.parse)
+  const { page, sortBy } = await getValidatedQuery(event, querySchema.parse)
 
   if (page) {
     return {
       success: true,
       status: 200,
-      data: getByPage(page),
+      data: getByPage(page, sortBy),
       meta: getMeta(page),
     }
   }
